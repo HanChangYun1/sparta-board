@@ -95,7 +95,7 @@ postRoute.put("/:_postId", async (req, res, next) => {
 postRoute.delete("/:_postId", async (req, res) => {
   const { _postId } = req.params;
   const { password } = req.body;
-  const postdelete = await postModel.findOne({ postId: _postId });
+  const existPost = await postModel.findOne({ postId: _postId });
   if (
     req.body == null ||
     _postId.length != 24 ||
@@ -105,7 +105,7 @@ postRoute.delete("/:_postId", async (req, res) => {
       .status(400)
       .json({ message: "데이터 형식이 올바르지 않습니다." });
   }
-  if (postdelete.password !== password) {
+  if (existPost.password !== password) {
     return res.status(404).json({ message: "게시글 조회에 실패하였습니다." });
   }
 

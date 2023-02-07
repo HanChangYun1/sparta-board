@@ -7,12 +7,11 @@ const commentRoute = express.Router();
 commentRoute.post("/:_postId", async (req, res) => {
   const { _postId } = req.params;
   const { user, password, content } = req.body;
-  const existPost = await postModel.find({ _postId });
+  const existPost = await postModel.findOne({ postId: _postId });
   if (
     req.body == null ||
-    req.params == null ||
-    Object.keys(req.body).length === 0 ||
-    Object.keys(req.params).length === 0
+    _postId.length != 24 ||
+    Object.keys(req.body).length === 0
   ) {
     return res
       .status(400)
@@ -34,12 +33,11 @@ commentRoute.post("/:_postId", async (req, res) => {
 commentRoute.get("/:_postId", async (req, res) => {
   const { _postId } = req.params;
 
-  const selectcollect = await commentModel.find({ postId: { $eq: _postId } });
+  const selectcollect = await commentModel.findOne({ postId: _postId });
   if (
     req.body == null ||
-    req.params == null ||
-    Object.keys(req.body).length === 0 ||
-    Object.keys(req.params).length === 0
+    _postId.length != 24 ||
+    Object.keys(req.body).length === 0
   ) {
     return res
       .status(400)
@@ -65,12 +63,11 @@ commentRoute.put("/:_commentId", async (req, res) => {
   const { _commentId } = req.params;
   const { password, content } = req.body;
   com;
-  const existComment = await commentModel.findById(_commentId);
+  const existComment = await commentModel.findOne({ commentId: _commentId });
   if (
     req.body == null ||
-    req.params == null ||
-    Object.keys(req.body).length === 0 ||
-    Object.keys(req.params).length === 0
+    _postId.length != 24 ||
+    Object.keys(req.body).length === 0
   ) {
     return res
       .status(400)
@@ -79,7 +76,7 @@ commentRoute.put("/:_commentId", async (req, res) => {
   if (content == null || Object.keys(content).length === 0) {
     return res.status(400).json({ message: "댓글 내용을 입력해주세요." });
   }
-  if (existComment) {
+  if (existComment.password != password) {
     return res.status(404).json({ message: "댓글 조회에 실패하였습니다." });
   }
   const repair = await commentModel.findOneAndUpdate(
@@ -100,15 +97,14 @@ commentRoute.delete("/:_commentId", async (req, res) => {
   const existComment = await commentModel.findById(_commentId);
   if (
     req.body == null ||
-    req.params == null ||
-    Object.keys(req.body).length === 0 ||
-    Object.keys(req.params).length === 0
+    _postId.length != 24 ||
+    Object.keys(req.body).length === 0
   ) {
     return res
       .status(400)
       .json({ message: "데이터 형식이 올바르지 않습니다." });
   }
-  if (existComment) {
+  if (existComment.password != password) {
     return res.status(404).json({ message: "댓글 조회에 실패하였습니다." });
   }
 
