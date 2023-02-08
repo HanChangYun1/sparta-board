@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-
-const commentSchema = new mongoose.Schema(
+import mongoose from "mongoose";
+const { Schema } = mongoose;
+const commentSchema = new Schema(
   {
     user: {
       type: String,
