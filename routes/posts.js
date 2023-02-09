@@ -81,10 +81,11 @@ postRoute.put("/:_postId", async (req, res, next) => {
     return res.status(404).json({ message: "게시글 조회에 실패하였습니다." });
   }
   const repair = await postModel.findOneAndUpdate(
-    { _postId: req.params._id },
+    req.params._postId,
     {
-      title: req.body.title,
-      content: req.body.content,
+      password: password,
+      title: title,
+      content: content,
     },
     { new: true }
   );

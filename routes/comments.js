@@ -80,10 +80,10 @@ commentRoute.put("/:_commentId", async (req, res) => {
     return res.status(404).json({ message: "댓글 조회에 실패하였습니다." });
   }
   const repair = await commentModel.findOneAndUpdate(
-    { _commentId: req.params._id },
+    req.params._commentId,
     {
-      password: req.body.password,
-      content: req.body.content,
+      password: password,
+      content: content,
     },
     { new: true }
   );
