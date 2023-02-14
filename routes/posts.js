@@ -35,7 +35,6 @@ postRoute.post("/posts", authMiddleware, async (req, res) => {
       title,
       content,
     });
-    console.log(createdPosts);
 
     res.json({ postReturn: createdPosts, message: "게시글을 생성하였습니다." });
   } catch (error) {
