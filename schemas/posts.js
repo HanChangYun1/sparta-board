@@ -1,15 +1,7 @@
 import mongoose from "mongoose";
-
-const postSchema = new mongoose.Schema(
+const { Schema } = mongoose;
+const postSchema = new Schema(
   {
-    user: {
-      type: String,
-      requierd: true,
-    },
-    password: {
-      type: String,
-      requierd: true,
-    },
     title: {
       type: String,
       requierd: true,
@@ -18,6 +10,8 @@ const postSchema = new mongoose.Schema(
       type: String,
       requierd: true,
     },
+    UserId: { type: Schema.Types.ObjectId, ref: "User" },
+    nickname: { type: Schema.Types.String, ref: "User" },
   },
   { timestamps: true }
 );

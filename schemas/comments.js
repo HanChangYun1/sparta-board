@@ -2,19 +2,13 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 const commentSchema = new Schema(
   {
-    user: {
+    comment: {
       type: String,
       requierd: true,
     },
-    password: {
-      type: String,
-      requierd: true,
-    },
-    content: {
-      type: String,
-      requierd: true,
-    },
-    postId: { type: Schema.Types.ObjectId, ref: "postModel" },
+    PostId: { type: Schema.Types.ObjectId, ref: "postModel" },
+    UserId: { type: Schema.Types.ObjectId, ref: "User" },
+    nickname: { type: Schema.Types.String, ref: "User" },
   },
   { timestamps: true }
 );
