@@ -4,7 +4,7 @@ const commentSchema = new Schema(
   {
     comment: {
       type: String,
-      requierd: true,
+      require: true,
     },
     PostId: { type: Schema.Types.ObjectId, ref: "postModel" },
     UserId: { type: Schema.Types.ObjectId, ref: "User" },

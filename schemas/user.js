@@ -5,13 +5,13 @@ const UserSchema = new Schema(
     nickname: {
       // nickname 필드
       type: String,
-      required: true,
+      require: true,
       unique: true,
     },
     password: {
       // password 필드
       type: String,
-      required: true,
+      require: true,
     },
   },
   { timestamps: true }

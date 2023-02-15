@@ -9,12 +9,10 @@ dotenv.config();
 
 const app = express();
 
-//나머지 불러오기
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//서버,db연결
 db();
 
 app.use("/api", [postRoute, userRoute]);

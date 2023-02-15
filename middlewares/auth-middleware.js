@@ -1,22 +1,22 @@
-// middlewares/auth-middleware.js
-
 import jwt from "jsonwebtoken";
 import Users from "../schemas/user.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-// 사용자 인증 미들웨어
 export const authMiddleware = async (req, res, next) => {
   try {
     const { authorization } = req.cookies;
     const [tokenType, token] = (authorization ?? "").split(" ");
-    //쿠키가 없을때
+
     if (tokenType !== "Bearer") {
       return res
         .status(401)
         .json({ message: "로그인 후 이용 가능한 기능입니다." });
     }
 
-    const decodedToken = jwt.verify(token, "customized_secret_key");
-    // console.log(decodedToken);
+    const secretkey = process.env.SECRETKEY;
+    const decodedToken = jwt.verify(token, secretkey);
+
     const userId = decodedToken.userId;
     if (!decodedToken) {
       return res
@@ -25,7 +25,7 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     const user = await Users.findOne({ _id: userId });
-    // console.log(user);
+
     if (!user) {
       res.clearCookie("authorization");
       return res

@@ -4,11 +4,11 @@ const postSchema = new Schema(
   {
     title: {
       type: String,
-      requierd: true,
+      require: true,
     },
     content: {
       type: String,
-      requierd: true,
+      require: true,
     },
     UserId: { type: Schema.Types.ObjectId, ref: "User" },
     nickname: { type: Schema.Types.String, ref: "User" },
